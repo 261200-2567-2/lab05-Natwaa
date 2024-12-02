@@ -1,4 +1,4 @@
-public class Mage implements Character {
+public class Mage implements Character{
     private String name;
     private int level;
     private int hp;
@@ -11,7 +11,7 @@ public class Mage implements Character {
     private Accessory[] accessories; // ใช้ array สำหรับเก็บอุปกรณ์
     private int accessoryCount;      // เก็บจำนวนอุปกรณ์ที่ใช้อยู่
 
-    public Mage(String name, int level, int hpMax, int mana, int intelligence, int resistance) {
+    public Mage(String name, int level, int hpMax, int mana, int intelligence, int resistance){
         this.name = name;
         this.level = level;
         this.hpMax = hpMax;
@@ -19,79 +19,79 @@ public class Mage implements Character {
         this.mana = mana;
         this.intelligence = intelligence;
         this.resistance = resistance;
-        this.baseRunSpeed = 10.0;
+        this.baseRunSpeed = 10.0; //กำหนดให้ความเร็วตั้งต้นคือ10
         this.runSpeed = baseRunSpeed;
         this.accessories = new Accessory[5];
         this.accessoryCount = 0;
     }
 
-    public String getName() {
+    public String getName(){
         return name;
     }
 
-    public int getLevel() {
+    public int getLevel(){
         return level;
     }
 
-    public int getHp() {
+    public int getHp(){
         return hp;
     }
 
-    public void setHp(int hp) {
+    public void setHp(int hp){
         this.hp = Math.max(0, hp); // ค่า hp ไม่ต่ำกว่า 0
         this.hpMax = Math.max(this.hp, this.hpMax); // ถ้า hp ใหม่ > hpMax, อัปเดต hpMax
     }
 
-    public int getHpMax() {
+    public int getHpMax(){
         return hpMax;
     }
 
-    public void setHpMax(int hpMax) {
+    public void setHpMax(int hpMax){
         this.hpMax = hpMax;
         if (hp > hpMax) {
             hp = hpMax;
         }
     }
 
-    public int getMana() {
+    public int getMana(){
         return mana;
     }
 
-    public void setMana(int mana) {
+    public void setMana(int mana){
         this.mana = mana;
     }
 
-    public int getDefense() {
+    public int getDefense(){
         return 0;
     }
 
-    public int getIntelligence() {
+    public int getIntelligence(){
         return intelligence;
     }
 
-    public int getResistance() {
+    public int getResistance(){
         return resistance;
     }
 
-    public void castSpell(String spellName, int manaCost) {
-        if (mana >= manaCost) {
+    public void castSpell(String spellName, int manaCost){
+        if (mana >= manaCost){
             mana -= manaCost;
             System.out.println(name + " casts " + spellName + "! Mana left: " + mana);
-        } else {
+        }else{
             System.out.println(name + " does not have enough mana to cast " + spellName + ".");
         }
     }
 
-    public void regenerateMana(int amount) {
+    public void regenerateMana(int amount){
         mana += amount;
         System.out.println(name + " regenerates " + amount + " mana. Current mana: " + mana);
     }
 
-    public double getRunSpeed() {
+    public double getRunSpeed(){
         return runSpeed;
     }
 
-    public void updateRunSpeed() {
+    public void updateRunSpeed(){
         runSpeed = baseRunSpeed; // เริ่มจากความเร็วพื้นฐาน
         for (int i = 0; i < accessoryCount; i++) {
             if (accessories[i] instanceof Boots) {
@@ -103,8 +103,8 @@ public class Mage implements Character {
         }
     }
 
-    public void equipAccessory(Accessory accessory) {
-        if (accessoryCount < accessories.length) {
+    public void equipAccessory(Accessory accessory){
+        if (accessoryCount < accessories.length){
             accessories[accessoryCount] = accessory;
             accessory.applyEffect(this);
             accessoryCount++;
@@ -112,19 +112,19 @@ public class Mage implements Character {
                 updateRunSpeed(); // อัปเดตความเร็วเมื่อใส่รองเท้า
             }
             System.out.println("Accessory equipped: " + accessory.getName());
-        } else {
+        }else{
             System.out.println("Cannot equip more accessories.");
         }
     }
 
-    public void removeAccessory(Accessory accessory) {
-        for (int i = 0; i < accessoryCount; i++) {
-            if (accessories[i] == accessory) {
+    public void removeAccessory(Accessory accessory){
+        for (int i = 0; i < accessoryCount; i++){
+            if (accessories[i] == accessory){
                 accessory.removeEffect(this);
                 accessories[i] = accessories[accessoryCount - 1];
                 accessories[accessoryCount - 1] = null;
                 accessoryCount--;
-                if (accessory instanceof Boots) {
+                if (accessory instanceof Boots){
                     updateRunSpeed(); // อัปเดตความเร็วเมื่อถอดรองเท้า
                 }
                 System.out.println("Accessory removed: " + accessory.getName());
@@ -135,7 +135,7 @@ public class Mage implements Character {
     }
 
 
-    public void displayStats() {
+    public void displayStats(){
         System.out.println("\nMage Stats... ");
         System.out.println("Name: " + name);
         System.out.println("Level: " + level);
@@ -145,7 +145,7 @@ public class Mage implements Character {
         System.out.println("Resistance: " + resistance);
         System.out.println("Run Speed: " + runSpeed);
         System.out.println("Accessories Equipped: " + accessoryCount);
-        for (int i = 0; i < accessoryCount; i++) {
+        for (int i = 0; i < accessoryCount; i++){
             System.out.println("- " + accessories[i].getName());
         }
     }

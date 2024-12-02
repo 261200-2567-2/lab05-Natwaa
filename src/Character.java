@@ -1,4 +1,4 @@
-public interface Character {
+public interface Character{
     String getName();
     int getLevel();
     int getHp();
@@ -11,6 +11,7 @@ public interface Character {
     void equipAccessory(Accessory accessory);
     void removeAccessory(Accessory accessory);
     void displayStats();
+
 }
 
 

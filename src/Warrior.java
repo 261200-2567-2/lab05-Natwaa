@@ -1,4 +1,4 @@
-public class Warrior implements Character {
+public class Warrior implements Character{
     private String name;
     private int level;
     private int hp;
@@ -10,7 +10,7 @@ public class Warrior implements Character {
     private Accessory[] accessories;
     private int accessoryCount;
 
-    public Warrior(String name, int level, int hpMax, int damage, int defense) {
+    public Warrior(String name, int level, int hpMax, int damage, int defense){
         this.name = name;
         this.level = level;
         this.hpMax = hpMax;
@@ -23,90 +23,90 @@ public class Warrior implements Character {
         this.accessoryCount = 0;
     }
 
-    public String getName() {
+    public String getName(){
         return name;
     }
 
-    public int getLevel() {
+    public int getLevel(){
         return level;
     }
 
-    public int getHp() {
+    public int getHp(){
         return hp;
     }
 
-    public void setHp(int hp) {
+    public void setHp(int hp){
         this.hp = Math.max(0, hp); // ค่า hp ไม่ต่ำกว่า 0
         this.hpMax = Math.max(this.hp, this.hpMax); // ถ้า hp ใหม่ > hpMax, อัปเดต hpMax
     }
 
-    public int getHpMax() {
+    public int getHpMax(){
         return hpMax;
     }
 
-    public void setHpMax(int hpMax) {
+    public void setHpMax(int hpMax){
         this.hpMax = hpMax;
-        if (hp > hpMax) {
+        if (hp > hpMax){
             hp = hpMax;
         }
     }
 
-    public int getDamage() {
+    public int getDamage(){
         return damage;
     }
 
-    public int getDefense() {
+    public int getDefense(){
         return defense;
     }
 
-    public double getRunSpeed() {
+    public double getRunSpeed(){
         return runSpeed;
     }
 
-    public void updateRunSpeed() {
+    public void updateRunSpeed(){
         runSpeed = baseRunSpeed; // เริ่มจากความเร็วพื้นฐาน
-        for (int i = 0; i < accessoryCount; i++) {
-            if (accessories[i] instanceof Boots) {
+        for (int i = 0; i < accessoryCount; i++){
+            if (accessories[i] instanceof Boots){
                 runSpeed += ((Boots) accessories[i]).getSpeedBoost();
             }
         }
-        if (runSpeed < 0) {
+        if (runSpeed < 0){
             runSpeed = 0; // ป้องกันไม่ให้ความเร็วติดลบ
         }
     }
 
-    public void attack(Character target) {
+    public void attack(Character target){
         int actualDamage = Math.max(0, this.damage - target.getDefense());
         target.setHp(target.getHp() - actualDamage);
         System.out.println(this.name + " attacks " + target.getName() + " for " + actualDamage + " damage!");
     }
 
-    public void block() {
+    public void block(){
         System.out.println(this.name + " blocks the incoming attack, reducing damage by " + this.defense + "!");
     }
 
-    public void equipAccessory(Accessory accessory) {
+    public void equipAccessory(Accessory accessory){
         if (accessoryCount < accessories.length) {
             accessories[accessoryCount] = accessory;
             accessory.applyEffect(this);
             accessoryCount++;
-            if (accessory instanceof Boots) {
+            if (accessory instanceof Boots){
                 updateRunSpeed(); // อัปเดตความเร็วเมื่อใส่รองเท้า
             }
             System.out.println("Accessory equipped: " + accessory.getName());
-        } else {
+        }else{
             System.out.println("Cannot equip more accessories.");
         }
     }
 
     public void removeAccessory(Accessory accessory) {
-        for (int i = 0; i < accessoryCount; i++) {
-            if (accessories[i] == accessory) {
+        for (int i = 0; i < accessoryCount; i++){
+            if (accessories[i] == accessory){
                 accessory.removeEffect(this);
                 accessories[i] = accessories[accessoryCount - 1];
                 accessories[accessoryCount - 1] = null;
                 accessoryCount--;
-                if (accessory instanceof Boots) {
+                if (accessory instanceof Boots){
                     updateRunSpeed(); // อัปเดตความเร็วเมื่อถอดรองเท้า
                 }
                 System.out.println("Accessory removed: " + accessory.getName());

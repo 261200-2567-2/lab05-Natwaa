@@ -37,6 +37,5 @@ public class RPGGame {
         mage.removeAccessory(ring);
         mage.removeAccessory(boots);
         mage.displayStats();
-
     }
 }
